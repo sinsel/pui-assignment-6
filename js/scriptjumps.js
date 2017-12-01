@@ -1,8 +1,10 @@
-$(window).load(function() {	//start after HTML, images have loaded
+$(window).load(function() {
 
+	var currentItem = 0;
 	var FiniteRotator =
 	{
-		infiniteLoop: 0,
+		//currentItem: 0,
+		finiteLoop: 0,
 		init: function()
 		{
 			var initialFadeIn = 100;
@@ -12,12 +14,13 @@ $(window).load(function() {	//start after HTML, images have loaded
 			var fadeTime = 50;
 			//count number of items
 			var numberOfItems = $('.rotating-item').length;
-			//set current item
-			var currentItem = 0;
+
 			//show first item
 			$('.rotating-item').eq(currentItem).fadeIn(initialFadeIn);
+
 			//loop through the items
-			this.infiniteLoop = setInterval(function(){
+			this.finiteLoop = setInterval(function(){
+				curr = $('.rotating-item').eq(currentItem);
 				$('.rotating-item').eq(currentItem).fadeOut(fadeTime);
 
 				if(currentItem == numberOfItems -1){
@@ -26,20 +29,26 @@ $(window).load(function() {	//start after HTML, images have loaded
 					currentItem++;
 				}
 
+
 				$(".rotating-item").eq(currentItem).fadeIn(fadeTime);
 
 			}, itemInterval);
 		},
 		stop: function()
 		{
-			clearInterval(this.infiniteLoop);
+			clearInterval(this.finiteLoop);
 		}
 	};
 
 	FiniteRotator.init();
 
-	$("#rotating-item-wrapper").onmouseover(
-		FiniteRotator.init().stop()
-	);
+	$( "#rotating-item-wrapper" ).mouseenter(function() {
+		FiniteRotator.stop()
+	});
+
+	$( "#rotating-item-wrapper" ).mouseleave(function() {
+		//curr.fadeOut(100);
+		FiniteRotator.init();
+	});
 
 });
