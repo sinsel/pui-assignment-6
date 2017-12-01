@@ -250,7 +250,7 @@ $(window).load(function() {
 		FiniteRotatorLoop.stop()
 	});
 
-	$( "#rotating-item-wrapper-salchow" ).mouseleave(function() {
+	$( "#rotating-item-wrapper-loop" ).mouseleave(function() {
 		FiniteRotatorLoop.init();
 	});
 
